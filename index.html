@@ -1,144 +1,330 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OPAS Starter | アーティスト募集 - セコンドペンギン企画</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&family=Noto+Serif+JP:wght@400;700&display=swap');
-        body { font-family: 'Noto Sans JP', sans-serif; }
-        .serif { font-family: 'Noto Serif JP', serif; }
-        .hero-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1547891654-e66ed7ebb968?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>OPAS｜油絵技能認証 スターター作品募集</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+JP:wght@600&display=swap" rel="stylesheet">
+  <style>
+    /* --- CSS Variables & Reset --- */
+    :root {
+      --color-primary: #5b1f2b; /* 元のえんじ色 */
+      --color-primary-dark: #3a131b;
+      --color-text: #333333;
+      --color-text-light: #666666;
+      --color-bg: #f9f8f6; /* 少し温かみのあるオフホワイト */
+      --color-white: #ffffff;
+      --font-serif: "Noto Serif JP", "Hiragino Mincho ProN", serif;
+      --font-sans: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    /* --- Header (Hero Section) --- */
+    header {
+      /* 油絵の背景画像を設定（落ち着いた雰囲気のものを選択） */
+      background-image: url('https://images.unsplash.com/photo-1506812574917-629b5566a745?q=80&w=2070&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      color: var(--color-white);
+      padding: 100px 20px; /* 上下の余白を広げてゆったりと */
+      text-align: center;
+      position: relative;
+    }
+
+    /* 背景画像の上に重ねる半透明のレイヤー */
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* えんじ色ベースの暗いグラデーションで深みを出す */
+      background: linear-gradient(to bottom, rgba(91, 31, 43, 0.85), rgba(91, 31, 43, 0.7));
+      z-index: 1;
+    }
+
+    header h1, header p {
+      position: relative;
+      z-index: 2; /* レイヤーより上に表示 */
+    }
+
+    header h1 {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      letter-spacing: 0.05em;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    /* --- Layout & Typography --- */
+    section {
+      max-width: 900px; /* 少し幅を狭めて読みやすく */
+      margin: 60px auto; /* セクション間の余白を広げる */
+      padding: 0 20px;
+    }
+
+    h2 {
+      font-family: var(--font-serif);
+      color: var(--color-primary);
+      border-left: 6px solid var(--color-primary);
+      padding-left: 15px;
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      line-height: 1.4;
+    }
+
+    /* 箇条書きのスタイル調整 */
+    ul {
+      padding-left: 20px;
+      margin: 20px 0;
+    }
+    
+    ul li {
+      margin-bottom: 10px;
+    }
+
+    /* --- Components --- */
+    .card {
+      background: var(--color-white);
+      padding: 40px; /* 内側の余白をたっぷり取る */
+      border-radius: 12px;
+      /* 柔らかく広がる影に変更 */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      margin-bottom: 40px;
+    }
+
+    /* Table Styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border: 1px solid #e0e0e0; /* 枠線を薄く */
+      padding: 15px; /* セルの余白を広げる */
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    th {
+      background-color: var(--color-primary); /* ヘッダーをえんじ色に */
+      color: var(--color-white);
+      font-weight: normal;
+      font-family: var(--font-serif);
+    }
+
+    /* 最初の列（項目名）のスタイル */
+    tr th:first-child {
+      background-color: #f4f4f4;
+      color: var(--color-text);
+      font-weight: bold;
+      text-align: left;
+    }
+
+    /* Button Styles */
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background-color: var(--color-primary);
+      color: var(--color-white);
+      text-decoration: none;
+      border-radius: 50px; /* 丸みのあるボタン */
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(91, 31, 43, 0.3);
+    }
+
+    .btn:hover {
+      background-color: var(--color-primary-dark);
+      box-shadow: 0 6px 15px rgba(91, 31, 43, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* --- Footer --- */
+    footer {
+      background: #333; /* 暗い背景で引き締める */
+      color: #aaa;
+      padding: 30px;
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 80px;
+    }
+
+    /* --- Responsive Adjustments --- */
+    @media (max-width: 600px) {
+      header {
+        padding: 60px 20px;
+      }
+      header h1 {
+        font-size: 1.8rem;
+      }
+      .card {
+        padding: 25px;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+      /* スマホでテーブルが横にはみ出さないようにスクロールさせる */
+      .card {
+        overflow-x: auto;
+      }
+      table {
+        min-width: 500px;
+      }
+    }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-800 antialiased">
+<body>
 
-    <header class="bg-white shadow-sm fixed w-full z-50">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-xl font-bold text-gray-900 tracking-wider">OPAS Starter</h1>
-            <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-blue-900">お問い合わせ</a>
-        </div>
-    </header>
+<header>
+  <h1>OPAS｜油絵技能認証</h1>
+  <p>Oil Painting Art Skills Certification</p>
+</header>
 
-    <section class="hero-bg h-screen flex items-center justify-center text-center px-4 pt-16">
-        <div class="max-w-3xl text-white">
-            <h2 class="text-3xl md:text-5xl font-bold serif mb-4 leading-tight">
-                あなたの才能を、<br>データから資産へ。
-            </h2>
-            <p class="text-lg md:text-xl mb-8 opacity-90">
-                アートデータベース「OPAS Starter」<br>参加クリエイター募集
-            </p>
-            <p class="text-sm mb-10 opacity-80 max-w-lg mx-auto">
-                50名の先鋭的な作家による、300点の物語を世界へ。<br>
-                個人事業から始まる、新しいアートエコシステムの構築。
-            </p>
-            
-            <div class="flex flex-col md:flex-row gap-4 justify-center">
-                <a href="【ここにAirtableのフォームURLを貼り付け】" target="_blank" class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-4 px-8 rounded-full shadow-lg transition duration-300 transform hover:-translate-y-1 text-lg">
-                    <i class="fas fa-edit mr-2"></i> 作品を登録する
-                </a>
-                
-                <a href="https://airtable.com/appM6HHj3yY5CB0wG/pagQstYSKFutFoqjB/form" class="bg-transparent border-2 border-white hover:bg-white hover:text-gray-900 text-white font-bold py-4 px-8 rounded-full shadow-lg transition duration-300">
-                    お問い合わせ
-                </a>
-            </div>
-        </div>
-    </section>
+<section>
+  <h2>このような方に向いています</h2>
+  <div class="card">
+    <ul>
+      <li>公募展や受賞歴はないが、長く油絵を描き続けてきた方</li>
+      <li>ご家族が管理している大切な油絵作品を、きちんと記録として残したい方</li>
+      <li>将来的に作品公開や販売、複製制作を検討している方</li>
+      <li>まずは1点から、試験的に評価を受けてみたい方</li>
+    </ul>
+  </div>
+</section>
 
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-4 text-center max-w-3xl">
-            <h3 class="text-2xl font-bold text-gray-900 mb-6 serif">プロジェクトの概要</h3>
-            <p class="text-gray-600 leading-relaxed mb-8">
-                セコンドペンギン企画が運営する、次世代のアート管理データベースプロジェクト。<br>
-                埋もれている優れた作品をデジタル化・数値化し、適切な評価と収益機会を創出します。
-            </p>
-        </div>
-    </section>
+<section>
+  <h2>OPASとは</h2>
+  <div class="card">
+    <p>
+      OPAS（Oil Painting Art Skills）は、油絵作品を「美しさ」や「流行」だけでなく、
+      <strong>技能・制作背景・保存性・将来価値</strong>の観点から総合的に評価・記録する認証制度です。
+    </p>
+    <p>
+      公募展や受賞歴に依存せず、作家の歩みと作品そのものを正しく残すことを目的としています。
+    </p>
+  </div>
+</section>
 
-    <section class="py-20 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <h3 class="text-2xl font-bold text-center text-gray-900 mb-12 serif">3つの参加メリット</h3>
-            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <div class="bg-white p-8 rounded-xl shadow-md text-center">
-                    <div class="text-blue-600 text-4xl mb-4"><i class="fas fa-database"></i></div>
-                    <h4 class="font-bold text-xl mb-3">プロ仕様の管理</h4>
-                    <p class="text-gray-600 text-sm">ご自身のポートフォリオが永続的にデータベース管理され、展示会や販売の商談に即座に活用可能です。</p>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-md text-center">
-                    <div class="text-blue-600 text-4xl mb-4"><i class="fas fa-chart-line"></i></div>
-                    <h4 class="font-bold text-xl mb-3">多角的な評価</h4>
-                    <p class="text-gray-600 text-sm">単なる「いいね」ではない、専門的な視点による多角的な評価スコアを蓄積し、価値を可視化します。</p>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-md text-center">
-                    <div class="text-blue-600 text-4xl mb-4"><i class="fas fa-coins"></i></div>
-                    <h4 class="font-bold text-xl mb-3">収益化への道</h4>
-                    <p class="text-gray-600 text-sm">将来的な販売プラットフォームへの優先掲載、およびデジタルコンテンツとしての活用権を提供します。</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<section>
+  <h2>スターター作品募集について</h2>
+  <div class="card">
+    <p>
+      OPASスターターは、初めてOPAS認証を受ける方向けのエントリープランです。
+      まずは1作品から、油絵作品の記録と評価を行います。
+    </p>
+    <ul>
+      <li>対象：個人作家・ご家族管理作品・無所属の画家</li>
+      <li>応募点数：1点</li>
+      <li>審査方法：提出画像・ヒアリング情報による評価</li>
+    </ul>
+  </div>
+</section>
 
-    <section class="py-20 bg-blue-900 text-white text-center">
-        <div class="container mx-auto px-4">
-            <h3 class="text-2xl font-bold mb-8 serif">費用について</h3>
-            <div class="bg-white text-gray-900 max-w-md mx-auto p-8 rounded-xl shadow-xl">
-                <div class="flex justify-between items-center border-b pb-4 mb-4">
-                    <span class="font-bold text-gray-600">登録料</span>
-                    <span class="text-3xl font-bold text-blue-700">¥0</span>
-                </div>
-                <div class="flex justify-between items-center mb-6">
-                    <span class="font-bold text-gray-600">管理費</span>
-                    <span class="text-3xl font-bold text-blue-700">¥0</span>
-                </div>
-                <p class="text-sm text-gray-500">
-                    ※現在は初期スターターメンバーとしての募集につき無料です。<br>
-                    アートの価値を最大化するパートナーとして、まずは50名の作家様と共に歩み始めます。
-                </p>
-            </div>
-        </div>
-    </section>
+<section>
+  <h2>料金プラン</h2>
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>スターター</th>
+          <th>スタンダード</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>対象</th>
+          <td>初回・試験的認証</td>
+          <td>継続・本格運用</td>
+        </tr>
+        <tr>
+          <th>認証点数</th>
+          <td>1点</td>
+          <td>3〜5点</td>
+        </tr>
+        <tr>
+          <th>作品評価</th>
+          <td>◯</td>
+          <td>◎（詳細）</td>
+        </tr>
+        <tr>
+          <th>デジタル記録</th>
+          <td>基本情報</td>
+          <td>拡張情報<br>（背景・技能）</td>
+        </tr>
+        <tr>
+          <th>公開</th>
+          <td>限定公開</td>
+          <td>一般公開可</td>
+        </tr>
+        <tr>
+          <th>費用（税込）</th>
+          <td><strong>11,000円</strong></td>
+          <td><strong>55,000円</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
 
-    <section id="contact" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto flex flex-col md:flex-row gap-10 items-center">
-                <div class="flex-1">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-6 serif">運営・お問い合わせ</h3>
-                    <div class="space-y-4 text-gray-700">
-                        <p><strong class="block text-gray-500 text-xs uppercase tracking-wide">会社名</strong>セコンドペンギン企画</p>
-                        <p><strong class="block text-gray-500 text-xs uppercase tracking-wide">電話番号</strong>070-9192-2524</p>
-                        <p><strong class="block text-gray-500 text-xs uppercase tracking-wide">所在地</strong>〒658-0032<br>兵庫県神戸市東灘区向洋町中6丁目9番地<br>神戸ファッションマート 4N-07-01</p>
-                        <p class="text-sm bg-gray-100 p-3 rounded">
-                            六甲ライナー「アイランドセンター駅」直結。<br>
-                            アートとファッションの拠点で、あなたの作品をサポートします。
-                        </p>
-                    </div>
-                </div>
-                <div class="flex-1 w-full">
-                    <div class="w-full h-64 bg-gray-200 rounded-lg overflow-hidden shadow-inner">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3281.5663738870566!2d135.2662!3d34.6657!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60008d716503c035%3A0x6a0c0e0e0e0e0e0e!2sKobe%20Fashion%20Mart!5e0!3m2!1sen!2sjp!4v1600000000000!5m2!1sen!2sjp" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mt-12 text-center">
-                <p class="mb-4 font-bold text-gray-800">ご質問・ご相談はこちらから</p>
-                <a href="mailto:info@example.com" class="inline-block bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-8 rounded shadow transition">
-                    <i class="fas fa-envelope mr-2"></i> メールでお問い合わせ
-                </a>
-                <p class="text-xs text-gray-500 mt-2">（メーラーが起動します）</p>
-            </div>
-        </div>
-    </section>
+<section>
+  <h2>お問い合わせ</h2>
+  <div class="card">
+    <p style="margin-bottom: 30px;">ご質問・ご相談はこちらのフォームからお送りください。</p>
+    <div style="text-align: center;">
+      <a class="btn" href="#">質問フォームへ</a>
+    </div>
+  </div>
+</section>
 
-    <footer class="bg-gray-900 text-gray-400 py-6 text-center text-sm">
-        <p>&copy; 2024 Second Penguin Planning. All Rights Reserved.</p>
-    </footer>
+<section>
+  <h2>作品登録</h2>
+  <div class="card">
+    <p style="margin-bottom: 30px;">OPASスターター作品の登録はこちらから行ってください。</p>
+    <div style="text-align: center;">
+      <a class="btn" href="#">作品登録フォームへ</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>運営・アクセス</h2>
+  <div class="card">
+    <p>
+      <strong>運営：セコンドペンギン企画</strong><br />
+      OPAS（油絵技能認証）事務局
+    </p>
+    <p style="margin-top: 20px; font-size: 0.9rem; color: var(--color-text-light);">
+      本サイトは、油絵作品の長期保存と正当な評価を目的として運営されています。
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p>© Second Penguin Project / OPAS</p>
+</footer>
 
 </body>
 </html>
